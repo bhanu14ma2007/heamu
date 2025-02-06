@@ -3,68 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Book Collection</title>
     <style>
+        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
             background-color: #f4f4f4;
+            text-align: center;
         }
-        .login-container {
-            background: white;
+        header {
+            background: #333;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+        }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             padding: 20px;
+        }
+        .book {
+            background: white;
+            margin: 15px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .login-container h2 {
+            width: 250px;
             text-align: center;
-            margin-bottom: 20px;
         }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .input-group input {
+        .book img {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
+            height: auto;
+            border-radius: 5px;
         }
-        .login-button {
-            width: 100%;
+        .book button, .btn {
+            display: inline-block;
             padding: 10px;
-            background: #007bff;
+            margin-top: 10px;
             border: none;
+            background: #007BFF;
             color: white;
-            font-size: 16px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 5px;
+            text-decoration: none;
         }
-        .login-button:hover {
+        .btn:hover, .book button:hover {
             background: #0056b3;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+        .modal img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="#" method="POST">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login-button">Login</button>
-        </form>
+
+    <header>📚 Book Collection</header>
+    
+    <main>
+        <section class="book">
+            <img src="images/Wings_of_Fire.jpeg" alt="Wings of Fire">
+            <h2>Wings of Fire</h2>
+            <button onclick="openModal('Wings of Fire', 'An inspiring autobiography.', 'images/Wings_of_Fire.jpeg')">View Details</button>
+        </section>
+        
+        <section class="book">
+            <img src="images/Another_Book.jpeg" alt="Another Book">
+            <h2>Another Book</h2>
+            <button onclick="openModal('Another Book', 'A captivating fantasy story.', 'images/Another_Book.jpeg')">View Details</button>
+        </section>
+        
+        <section class="book">
+            <h2>Shivji</h2>
+            <a href="pdfs/SHIVJI.pdf" class="btn" target="_blank">📖 Open PDF</a>
+        </section>
+    </main>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="">
+            <p id="modal-description"></p>
+        </div>
     </div>
+    
+    <script>
+        function openModal(title, description, imageUrl) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal-image').src = imageUrl;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+
 </body>
 </html>
