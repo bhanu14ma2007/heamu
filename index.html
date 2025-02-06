@@ -1,136 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Collection</title>
+    <title>bookes.com</title>
+    <link rel="stylesheet" href="/static/css/style.css">
     <style>
-        /* Global Styles */
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ECF0F1;
+        }
+
+        header {
+            background-color: #F5F5F5;
+            color: #2C3E50;
+            padding: 1rem 0;
             text-align: center;
         }
-        header {
-            background: #333;
-            color: white;
-            padding: 15px;
-            font-size: 24px;
+
+        nav a {
+            margin: 0 15px;
+            color: #2C3E50;
+            text-decoration: none;
+            font-weight: bold;
         }
-        main {
+
+        h1, h2, h3 {
+            margin: 20px;
+            text-align: center;
+        }
+
+        /* Book List Styles */
+        .book-list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            gap: 20px;
             padding: 20px;
         }
-        .book {
-            background: white;
-            margin: 15px;
-            padding: 15px;
+
+        .book-card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        /* 3D Flip Animation */
+        .book-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .book-card:hover .book-inner {
+            transform: rotateY(180deg);
+        }
+
+        .book-front, .book-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 250px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-front {
+            background: #2C3E50;
+        }
+
+        .book-back {
+            background: brown;
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .book-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-back h3 {
+            margin: 10px 0;
+        }
+
+        .book-back p {
+            font-size: 14px;
             text-align: center;
         }
-        .book img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        .book button, .btn {
-            display: inline-block;
-            padding: 10px;
-            margin-top: 10px;
+
+        /* Button Styles */
+        .book-back button {
+            background: #ff5722;
+            color: #fff;
             border: none;
-            background: #007BFF;
-            color: white;
-            cursor: pointer;
+            padding: 10px 15px;
             border-radius: 5px;
-            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        .btn:hover, .book button:hover {
-            background: #0056b3;
+
+        .book-back button:hover {
+            background: #e64a19;
         }
+
         /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
             top: 0;
-            left: 0;
+            left: 0px;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
             align-items: center;
+justify-content: center;
         }
+
         .modal-content {
-            background: white;
+            background: #fff;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            width: 300px;
+            width: 90%;
+            max-width: 400px;
             position: relative;
+justify-content: center;
+
         }
-        .modal img {
+
+        .modal-content img {
             width: 100%;
-            border-radius: 5px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+justify-content: center;
         }
-        .close {
+
+        .close-btn {
             position: absolute;
             top: 10px;
-            right: 15px;
-            font-size: 24px;
+            right: 10px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
             cursor: pointer;
+            width: 30px;
+            height: 30px;
         }
     </style>
 </head>
 <body>
+    <header>
 
-    <header>📚 Book Collection</header>
-    
+        <u> <font face="Courier New" size="4" color="#2C3E50"><h1>EASY TO LEARN</h1></font></u>
+        <nav>
+            <a href="fill.html">Home</a>
+            <a href="host.html">Favourites</a>
+            <a href="login.html">Login</a>
+        </nav>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: right;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        .search-container button {
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: white;
+            cursor: pointer;
+        }
+        .search-container button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        &nbsp;&nbsp;&nbsp;<input type="text" placeholder="Search...">
+        <button><i class="fas fa-search"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+</body>
+
+    </header>
+
     <main>
-        <section class="book">
-            <img src="images/Wings_of_Fire.jpeg" alt="Wings of Fire">
-            <h2>Wings of Fire</h2>
-            <button onclick="openModal('Wings of Fire', 'An inspiring autobiography.', 'images/Wings_of_Fire.jpeg')">View Details</button>
-        </section>
-        
-        <section class="book">
-            <img src="images/Another_Book.jpeg" alt="Another Book">
-            <h2>Another Book</h2>
-            <button onclick="openModal('Another Book', 'A captivating fantasy story.', 'images/Another_Book.jpeg')">View Details</button>
-        </section>
-        
-        <section class="book">
-            <h2>Shivji</h2>
-            <a href="pdfs/SHIVJI.pdf" class="btn" target="_blank">📖 Open PDF</a>
-        </section>
+        <h2>Featured Books</h2>
+        <div class="book-list">
+            <!-- Existing Book Cards -->
+            <div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:/Users/DELL/Downloads/download (3).jpeg" alt="Book 1">
+                    </div>
+                    <div class="book-back">
+                        <h3 >THE GREAT MARATHA</h3>
+<button onclick="openModal('SHIVAJI','RANJIT DESAI','EASY TO LEARN.', 'C:/Users/DELL/Downloads/download (3).jpeg')">View Details</button><BR>
+<button ><a href="C:/Users/DELL/Desktop/eacy to learn/SHIVJI.pdf">open</a></button>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Book Cards -->
+            <div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:/Users/DELL/Downloads/Wings of Fire.jpeg" alt="Book 2">
+                    </div>
+                    <div class="book-back">
+                        <h3>WINGS OF FIRE</h3>
+                        <button onclick="openModal('A.P.J.ABDUL KALAM WITH ARUN TIWARI','A.P.JABDUL KALAM.','VERY WONDERFUL', 'C:/Users/DELL/Downloads/Wings of Fire.jpeg')">View Details</button><br>
+<button><a href="C:\Users\DELL\Desktop\ap.abd.pdf" target="_blank" class="pdf-btn">Open PDF</a>
+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat this structure for 10 new book cards -->
+            <div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\RAM.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>AMISH</h3>
+<button onclick="openModal( 'RAM','SCION OF IKSHVAKU','RAM CHANDRA SERIES BOOK', 'C:\Users\DELL\Downloads\RAM.jpeg')">View Details</button><BR>
+<button><A href="C:\Users\DELL\Desktop\RAM.pdf">OPEN</A></button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\Books _ Aleph Book Company.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        
+                        <button onclick="openModal( 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\download (2).jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\War Of Lanka (Ram Chandra Series Book 4) eBook _ Tripathi, Amish_ Amazon_in_ Kindle Store.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\download (1).jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\The India Way - by  S Jaishankar (Hardcover).jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\Great history of India.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\HIDDEN  HINDU BOOK.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\A History of Ancient and Early Medieval India _for UPSC _ Civil Services Exam _ State Administrative.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\91QLGlPRcfL._AC_UF1000,1000_QL80_.jpg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="C:\Users\DELL\Downloads\download - Copy.jpeg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="path/to/image3.jpg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+<div class="book-card">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img src="path/to/image3.jpg" alt="Book 3">
+                    </div>
+                    <div class="book-back">
+                        <h3>Book Title 3</h3>
+                        <p>$20.00</p>
+                        <button onclick="openModal('Book Title 3', '$20.00', 'A captivating fantasy story.', 'path/to/image3.jpg')">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More cards as needed -->
+        </div>
     </main>
-    
-    <!-- Modal -->
-    <div id="modal" class="modal">
+
+   
+        // Open Modal <!-- Modal -->
+    <div class="modal" id="book-modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title"></h2>
-            <img id="modal-image" src="" alt="">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <img id="modal-image" src="" alt="Book Cover">
+            <h3 id="modal-title"></h3>
+            <p id="modal-price"></p>
             <p id="modal-description"></p>
         </div>
     </div>
-    
+
     <script>
-        function openModal(title, description, imageUrl) {
+        function openModal(title, price, description, image) {
             document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-price').textContent = price;
             document.getElementById('modal-description').textContent = description;
-            document.getElementById('modal-image').src = imageUrl;
-            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal-image').src = image;
+            document.getElementById('book-modal').style.display = 'flex';
         }
-        
+
+        // Close Modal
         function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+            document.getElementById('book-modal').style.display = 'none';
         }
     </script>
-
 </body>
 </html>
+
